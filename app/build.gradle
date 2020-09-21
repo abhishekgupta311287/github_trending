@@ -42,7 +42,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
 
     implementation "com.github.bumptech.glide:glide:$versions.glide"
-    annotationProcessor "com.github.bumptech.glide:compiler:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
 
     implementation "org.koin:koin-android:$versions.koin_version"
     implementation "org.koin:koin-androidx-scope:$versions.koin_version"
@@ -62,6 +62,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$versions.room_compiler"
 
     testImplementation "junit:junit:$versions.junit"
+    testImplementation "io.mockk:mockk:$versions.mockk"
     androidTestImplementation "androidx.test.ext:junit:$versions.junit_ext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
 

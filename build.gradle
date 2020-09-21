@@ -31,6 +31,7 @@ buildscript {
         versions.junit = '4.13'
         versions.junit_ext = '1.1.2'
         versions.espresso = '3.3.0'
+        versions.mockk = '1.10.0'
     }
 
     repositories {
