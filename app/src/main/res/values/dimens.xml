@@ -2,4 +2,35 @@
     <dimen name="lang_color_circle_width">9dp</dimen>
     <dimen name="lang_color_circle_height">9dp</dimen>
 
+    <dimen name="name_margin_top">6dp</dimen>
+    <dimen name="content_margin">10dp</dimen>
+    <dimen name="content_padding">16dp</dimen>
+    <dimen name="circular_image_dimen">32dp</dimen>
+    <dimen name="author_margin_start">16dp</dimen>
+    <dimen name="author_margin_top">16dp</dimen>
+    <dimen name="author_margin_y_pos">16dp</dimen>
+    <dimen name="name_margin_start">16dp</dimen>
+    <dimen name="desc_margin_start">16dp</dimen>
+    <dimen name="lang_margin_start">16dp</dimen>
+    <dimen name="lang_margin_top">8dp</dimen>
+    <dimen name="stars_margin_top">8dp</dimen>
+    <dimen name="fork_margin_top">8dp</dimen>
+    <dimen name="circular_image_border">0.5dp</dimen>
+
+    <dimen name="author_text_size">12sp</dimen>
+    <dimen name="name_text_size">15sp</dimen>
+    <dimen name="desc_text_size">12sp</dimen>
+    <dimen name="lang_text_size">12sp</dimen>
+    <dimen name="stars_text_size">12sp</dimen>
+    <dimen name="forks_text_size">12sp</dimen>
+    <dimen name="desc_margin_top">8dp</dimen>
+    <dimen name="desc_margin_end">16dp</dimen>
+    <dimen name="lang_drawable_padding">8dp</dimen>
+    <dimen name="stars_drawable_padding">4dp</dimen>
+    <dimen name="forks_drawable_padding">4dp</dimen>
+    <dimen name="stars_margin_start">16dp</dimen>
+    <dimen name="forks_margin_start">16dp</dimen>
+
+    <dimen name="app_bar_height">180dp</dimen>
+
 </resources>

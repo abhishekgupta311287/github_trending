@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingStart="@dimen/content_padding"
+    android:paddingEnd="@dimen/content_padding"
+    android:paddingBottom="@dimen/content_padding"
+    tools:context=".view.TrendingActivity">
+
+    <com.abhishekgupta.trending.view.custom.CircularImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/circular_image_dimen"
+        android:layout_height="@dimen/circular_image_dimen"
+        android:layout_marginTop="21dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@android:color/black"
+        app:civ_border_width="@dimen/circular_image_border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/author_margin_start"
+        android:layout_marginTop="@dimen/author_margin_top"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/author_text_size"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_editor_absoluteY="@dimen/author_margin_y_pos"
+        tools:text="author" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/name_margin_start"
+        android:layout_marginTop="@dimen/name_margin_top"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/name_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/author"
+        tools:text="name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/desc_margin_start"
+        android:layout_marginTop="@dimen/desc_margin_top"
+        android:layout_marginEnd="@dimen/desc_margin_end"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/desc_text_size"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        tools:text="This is the demo description of the demo trending repository. supports multiline" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/lang_margin_start"
+        android:layout_marginTop="@dimen/lang_margin_top"
+        android:drawableStart="@drawable/lang_color_drawable"
+        android:drawablePadding="@dimen/lang_drawable_padding"
+        android:gravity="center_vertical"
+        android:textAlignment="gravity"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/lang_text_size"
+        app:layout_constraintStart_toEndOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_editor_absoluteX="@dimen/content_margin"
+        tools:text="C++" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/stars_margin_start"
+        android:layout_marginTop="@dimen/stars_margin_top"
+        android:drawableStart="@mipmap/star_yellow"
+        android:drawablePadding="@dimen/stars_drawable_padding"
+        android:gravity="center_vertical"
+        android:textAlignment="gravity"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/stars_text_size"
+        app:layout_constraintStart_toEndOf="@+id/language"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        tools:text="14236" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/forks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/forks_margin_start"
+        android:layout_marginTop="@dimen/fork_margin_top"
+        android:drawableStart="@mipmap/fork_black"
+        android:drawablePadding="@dimen/forks_drawable_padding"
+        android:gravity="center_vertical"
+        android:textAlignment="gravity"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/forks_text_size"
+        app:layout_constraintStart_toEndOf="@+id/stars"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        tools:text="4376" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
