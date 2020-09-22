@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="lang_color_circle_width">9dp</dimen>
+    <dimen name="lang_color_circle_height">9dp</dimen>
+
+</resources>
