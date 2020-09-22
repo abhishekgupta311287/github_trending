@@ -40,5 +40,13 @@
     <dimen name="placeholder3_width">260dp</dimen>
     <dimen name="placeholder_radius">8dp</dimen>
     <dimen name="divider_height">1dp</dimen>
+    <dimen name="error_title_margin_top">24dp</dimen>
+    <dimen name="error_title_size">18sp</dimen>
+    <dimen name="error_subtitle_margin_top">8dp</dimen>
+    <dimen name="error_subtitle_size">15sp</dimen>
+    <dimen name="retry_btn_height">48dp</dimen>
+    <dimen name="retry_btn_text_size">15sp</dimen>
+    <dimen name="rectangle_stroke_height">1dp</dimen>
+    <dimen name="rectangle_radius">4dp</dimen>
 
 </resources>
