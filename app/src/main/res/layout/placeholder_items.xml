@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:padding="@dimen/placeholder_padding"
+    android:paddingTop="@dimen/placeholder_padding"
     tools:context=".view.TrendingActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/placeholder1"
         android:layout_width="@dimen/circular_image_dimen"
         android:layout_height="@dimen/circular_image_dimen"
+        android:layout_marginStart="@dimen/placeholder_padding"
         android:background="@drawable/placeholder_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,4 +38,11 @@
         app:layout_constraintStart_toEndOf="@+id/placeholder1"
         app:layout_constraintTop_toBottomOf="@+id/placeholder2" />
 
+    <View
+        android:id="@+id/placeholder_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder3"
+        android:layout_marginTop="21dp"
+        android:background="@color/placeholder_color" />
 </androidx.constraintlayout.widget.ConstraintLayout>

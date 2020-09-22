@@ -39,5 +39,6 @@
     <dimen name="placeholder_height">6dp</dimen>
     <dimen name="placeholder3_width">260dp</dimen>
     <dimen name="placeholder_radius">8dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
 
 </resources>
