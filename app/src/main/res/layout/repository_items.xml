@@ -10,14 +10,12 @@
     android:paddingBottom="@dimen/content_padding"
     tools:context=".view.TrendingActivity">
 
-    <com.abhishekgupta.trending.view.custom.CircularImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/avatar"
         android:layout_width="@dimen/circular_image_dimen"
         android:layout_height="@dimen/circular_image_dimen"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="@dimen/circular_image_top"
         android:src="@mipmap/ic_launcher_round"
-        app:civ_border_color="@android:color/black"
-        app:civ_border_width="@dimen/circular_image_border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

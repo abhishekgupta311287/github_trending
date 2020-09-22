@@ -32,5 +32,6 @@
     <dimen name="forks_margin_start">16dp</dimen>
 
     <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="circular_image_top">21dp</dimen>
 
 </resources>
