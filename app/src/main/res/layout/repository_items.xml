@@ -34,7 +34,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/name_margin_start"
         android:layout_marginTop="@dimen/name_margin_top"
@@ -43,20 +43,22 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/author"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:text="name" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintWidth_default="wrap"
         android:layout_marginStart="@dimen/desc_margin_start"
         android:layout_marginTop="@dimen/desc_margin_top"
-        android:layout_marginEnd="@dimen/desc_margin_end"
         android:textColor="@color/text_color"
         android:textSize="@dimen/desc_text_size"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/name"
-        tools:text="This is the demo description of the demo trending repository. supports multiline" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="This is the demo description of the demo trending repository. It supports multiline" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/language"
@@ -67,7 +69,6 @@
         android:drawableStart="@drawable/lang_color_drawable"
         android:drawablePadding="@dimen/lang_drawable_padding"
         android:gravity="center_vertical"
-        android:textAlignment="gravity"
         android:textColor="@color/text_color"
         android:textSize="@dimen/lang_text_size"
         app:layout_constraintStart_toEndOf="@+id/avatar"
