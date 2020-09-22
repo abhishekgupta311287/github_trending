@@ -36,6 +36,7 @@ class TrendingFragment : Fragment() {
 
         initTrendingView()
         handleRetryButtonAction()
+        handlePullToRefreshAction()
         fetchRepos()
     }
 
@@ -60,6 +61,12 @@ class TrendingFragment : Fragment() {
 
             errorLayout.visibility = View.GONE
 
+            fetchRepos()
+        }
+    }
+
+    private fun handlePullToRefreshAction() {
+        swipeRefresh.setOnRefreshListener {
             fetchRepos()
         }
     }
@@ -95,5 +102,7 @@ class TrendingFragment : Fragment() {
     private fun hideShimmerLoading() {
         shimmerLayout.hideShimmer()
         shimmerLayout.visibility = View.GONE
+
+        swipeRefresh.isRefreshing = false
     }
 }
