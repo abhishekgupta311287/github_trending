@@ -86,12 +86,11 @@ class TrendingFragment : Fragment() {
                         adapter.notifyDataSetChanged()
                     }
                     is Resource.Loading -> {
-                        // not required as of now
-                        // shimmer loading shown by default
+                        swipeRefresh.visibility = View.GONE
                     }
                     is Resource.Error -> {
-                        // show error
                         hideShimmerLoading()
+                        swipeRefresh.visibility = View.GONE
                         errorLayout.visibility = View.VISIBLE
                     }
                 }
