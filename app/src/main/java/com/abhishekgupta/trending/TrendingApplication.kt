@@ -1,6 +1,7 @@
 package com.abhishekgupta.trending
 
 import android.app.Application
+import com.abhishekgupta.trending.di.appModule
 import com.abhishekgupta.trending.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,7 +17,8 @@ class TrendingApplication : Application() {
             androidContext(this@TrendingApplication)
             modules(
                 listOf(
-                    networkModule
+                    networkModule,
+                    appModule
                 )
             )
         }
