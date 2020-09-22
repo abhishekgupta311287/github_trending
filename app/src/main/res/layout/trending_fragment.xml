@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".view.TrendingFragment">
 
-    <include layout="@layout/swipe_to_refresh_layout" />
+    <include layout="@layout/swipe_to_refresh_layout"/>
+
+    <include layout="@layout/shimmer_effect_layout"/>
+
+    <include layout="@layout/error_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
