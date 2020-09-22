@@ -5,5 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="text_color">#52575C</color>
+    <color name="placeholder_color">#5052575C</color>
 
 </resources>

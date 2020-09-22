@@ -33,5 +33,11 @@
 
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="circular_image_top">21dp</dimen>
+    <dimen name="placeholder_padding">21dp</dimen>
+    <dimen name="placeholder_margin">16dp</dimen>
+    <dimen name="placeholder2_width">100dp</dimen>
+    <dimen name="placeholder_height">6dp</dimen>
+    <dimen name="placeholder3_width">260dp</dimen>
+    <dimen name="placeholder_radius">8dp</dimen>
 
 </resources>
