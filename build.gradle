@@ -17,6 +17,7 @@ buildscript {
         versions.constraintlayout = '2.0.1'
         versions.lifecycle = '2.2.0'
         versions.material = '1.2.1'
+        versions.swiperefreshlayout = '1.1.0'
 
         versions.glide = '4.11.0'
         versions.retrofit = '2.6.0'
