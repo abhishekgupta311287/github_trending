@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abhishekgupta.trending.R
+import com.abhishekgupta.trending.model.RepositoryDto
 import com.abhishekgupta.trending.model.Resource
 import com.abhishekgupta.trending.view.adapter.TrendingRepoAdapter
 import com.abhishekgupta.trending.viewmodel.TrendingViewModel
@@ -82,8 +83,7 @@ class TrendingFragment : Fragment() {
                         hideShimmerLoading()
 
                         swipeRefresh.visibility = View.VISIBLE
-                        adapter.repositories.addAll(it.data as ArrayList)
-                        adapter.notifyDataSetChanged()
+                        adapter.repositories = it.data as ArrayList<RepositoryDto>
                     }
                     is Resource.Loading -> {
                         swipeRefresh.visibility = View.GONE

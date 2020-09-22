@@ -34,7 +34,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/name_margin_start"
         android:layout_marginTop="@dimen/name_margin_top"
@@ -43,69 +43,85 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/author"
-        app:layout_constraintEnd_toEndOf="parent"
         tools:text="name" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/description"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/moreDetails"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_default="wrap"
-        android:layout_marginStart="@dimen/desc_margin_start"
-        android:layout_marginTop="@dimen/desc_margin_top"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/desc_text_size"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintWidth_default="wrap">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/desc_margin_start"
+            android:layout_marginTop="@dimen/desc_margin_top"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/desc_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="wrap"
+            tools:text="This is the demo description of the demo trending repository. It supports multiline" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/lang_margin_start"
+            android:layout_marginTop="@dimen/lang_margin_top"
+            android:drawableStart="@drawable/lang_color_drawable"
+            android:drawablePadding="@dimen/lang_drawable_padding"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/lang_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            app:layout_editor_absoluteX="@dimen/content_margin"
+            tools:text="C++" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/stars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/stars_margin_start"
+            android:layout_marginTop="@dimen/stars_margin_top"
+            android:drawableStart="@mipmap/star_yellow"
+            android:drawablePadding="@dimen/stars_drawable_padding"
+            android:gravity="center_vertical"
+            android:textAlignment="gravity"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/stars_text_size"
+            app:layout_constraintStart_toEndOf="@+id/language"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            tools:text="14236" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/forks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/forks_margin_start"
+            android:layout_marginTop="@dimen/fork_margin_top"
+            android:drawableStart="@mipmap/fork_black"
+            android:drawablePadding="@dimen/forks_drawable_padding"
+            android:gravity="center_vertical"
+            android:textAlignment="gravity"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/forks_text_size"
+            app:layout_constraintStart_toEndOf="@+id/stars"
+            app:layout_constraintTop_toBottomOf="@+id/description"
+            tools:text="4376" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="This is the demo description of the demo trending repository. It supports multiline" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/lang_margin_start"
-        android:layout_marginTop="@dimen/lang_margin_top"
-        android:drawableStart="@drawable/lang_color_drawable"
-        android:drawablePadding="@dimen/lang_drawable_padding"
-        android:gravity="center_vertical"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/lang_text_size"
-        app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        app:layout_editor_absoluteX="@dimen/content_margin"
-        tools:text="C++" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/stars"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/stars_margin_start"
-        android:layout_marginTop="@dimen/stars_margin_top"
-        android:drawableStart="@mipmap/star_yellow"
-        android:drawablePadding="@dimen/stars_drawable_padding"
-        android:gravity="center_vertical"
-        android:textAlignment="gravity"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/stars_text_size"
-        app:layout_constraintStart_toEndOf="@+id/language"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        tools:text="14236" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/forks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/forks_margin_start"
-        android:layout_marginTop="@dimen/fork_margin_top"
-        android:drawableStart="@mipmap/fork_black"
-        android:drawablePadding="@dimen/forks_drawable_padding"
-        android:gravity="center_vertical"
-        android:textAlignment="gravity"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/forks_text_size"
-        app:layout_constraintStart_toEndOf="@+id/stars"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        tools:text="4376" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
