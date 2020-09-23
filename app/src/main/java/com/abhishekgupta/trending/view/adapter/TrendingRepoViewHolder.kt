@@ -19,6 +19,7 @@ class TrendingRepoViewHolder(view: View) : BaseViewHolder(view) {
         Glide
             .with(itemView.avatar)
             .load(dto.avatar)
+            .placeholder(R.drawable.placeholder_circle)
             .circleCrop()
             .into(itemView.avatar)
 
