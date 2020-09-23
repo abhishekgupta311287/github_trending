@@ -10,6 +10,6 @@ import org.koin.dsl.module
 
 val appModule = module {
     single<IScheduler> { AppScheduler() }
-    single<ITrendingRepository> { TrendingRepositoryImpl(get()) }
+    single<ITrendingRepository> { TrendingRepositoryImpl(get(), get(), get(), get()) }
     viewModel { TrendingViewModel(get(), get()) }
 }
