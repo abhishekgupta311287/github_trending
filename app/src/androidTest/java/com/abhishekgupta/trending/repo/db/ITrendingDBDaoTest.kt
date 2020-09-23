@@ -1,9 +1,11 @@
 package com.abhishekgupta.trending.repo.db
 
+import androidx.room.EmptyResultSetException
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.abhishekgupta.trending.model.ContributorDto
+import com.abhishekgupta.trending.model.RepositoryData
 import com.abhishekgupta.trending.model.RepositoryDto
 import org.junit.After
 import org.junit.Assert
@@ -35,6 +37,11 @@ class ITrendingDBDaoTest {
         repositoryDto
     )
 
+    private val data = RepositoryData(
+        10,
+        repositoryList
+    )
+
     private lateinit var db: TrendingDb
 
     @Before
@@ -55,38 +62,48 @@ class ITrendingDBDaoTest {
 
     @Test
     fun insert() {
-        db.trendingDao().insert(repositoryList)
+        db.trendingDao().insert(data)
 
         val repos = db.trendingDao().getAllTrendingRepos()
 
-        Assert.assertEquals(1, repos.blockingGet().size)
+        Assert.assertEquals(1, repos.blockingGet().repos.size)
     }
 
-    @Test
+    @Test(expected = EmptyResultSetException::class)
     fun deleteAll() {
         repositoryList.add(repositoryDto.copy(author = "author1"))
-        db.trendingDao().insert(repositoryList)
+        db.trendingDao().insert(
+            RepositoryData(
+                10,
+                repositoryList
+            )
+        )
 
         var repos = db.trendingDao().getAllTrendingRepos()
 
-        Assert.assertEquals(2, repos.blockingGet().size)
+        Assert.assertEquals(2, repos.blockingGet().repos.size)
 
         db.trendingDao().deleteAll()
 
         repos = db.trendingDao().getAllTrendingRepos()
 
-        assert(repos.blockingGet().isEmpty())
+        assert(repos.blockingGet().repos.isEmpty())
     }
 
     @Test
     fun getAllTrendingRepos() {
         repositoryList.add(repositoryDto.copy(author = "author1"))
         repositoryList.add(repositoryDto.copy(author = "author2"))
-        db.trendingDao().insert(repositoryList)
+        db.trendingDao().insert(
+            RepositoryData(
+                10,
+                repositoryList
+            )
+        )
 
         val repos = db.trendingDao().getAllTrendingRepos()
 
-        Assert.assertEquals(3, repos.blockingGet().size)
+        Assert.assertEquals(3, repos.blockingGet().repos.size)
 
     }
 }
