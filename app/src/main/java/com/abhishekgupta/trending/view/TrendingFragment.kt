@@ -57,17 +57,21 @@ class TrendingFragment : Fragment() {
 
     private fun handleRetryButtonAction() {
         retry.setOnClickListener {
-            shimmerLayout.showShimmer(true)
-            shimmerLayout.visibility = View.VISIBLE
-
-            errorLayout.visibility = View.GONE
-
+            showShimmerLoading()
             fetchRepos()
         }
     }
 
+    private fun showShimmerLoading() {
+        shimmerLayout.showShimmer(true)
+        shimmerLayout.visibility = View.VISIBLE
+
+        errorLayout.visibility = View.GONE
+    }
+
     private fun handlePullToRefreshAction() {
         swipeRefresh.setOnRefreshListener {
+            showShimmerLoading()
             fetchRepos(true)
         }
     }
@@ -82,6 +86,7 @@ class TrendingFragment : Fragment() {
                         hideShimmerLoading()
 
                         swipeRefresh.visibility = View.VISIBLE
+                        errorLayout.visibility = View.GONE
                         adapter.repositories = it.data as ArrayList<RepositoryDto>
                     }
                     is Resource.Loading -> {
