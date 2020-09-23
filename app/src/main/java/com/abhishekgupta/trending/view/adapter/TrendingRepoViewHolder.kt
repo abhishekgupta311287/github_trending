@@ -3,9 +3,9 @@ package com.abhishekgupta.trending.view.adapter
 import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.os.Build
 import android.view.View
 import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import com.abhishekgupta.trending.R
 import com.abhishekgupta.trending.model.RepositoryDto
 import com.abhishekgupta.trending.util.parseColor
@@ -31,13 +31,7 @@ class TrendingRepoViewHolder(view: View) : BaseViewHolder(view) {
         itemView.stars.text = dto.stars.toString()
         itemView.forks.text = dto.forks.toString()
 
-
-        val defaultColor = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            context.resources.getColor(R.color.text_color, null)
-        } else {
-            context.resources.getColor(R.color.text_color)
-        }
-        setLanguageColor(dto.languageColor, defaultColor)
+        setLanguageColor(dto.languageColor, ContextCompat.getColor(context, R.color.text_color))
 
     }
 
