@@ -61,4 +61,7 @@ class TrendingRepositoryImpl(
 
     }
 
+    companion object {
+        const val CACHE_EXPIRY_HOURS = 2
+    }
 }
