@@ -1,7 +1,9 @@
 package com.abhishekgupta.trending.util
 
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
+import androidx.annotation.ColorInt
 import com.abhishekgupta.trending.repo.network.TrendingRepositoryImpl
 import java.util.*
 
@@ -25,4 +27,15 @@ fun Context.isNetworkAvailable(): Boolean? {
         this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     return connectivityManager.activeNetworkInfo?.isConnectedOrConnecting
+}
+
+@ColorInt
+fun parseColor(hexColor: String?, @ColorInt defaultColor: Int): Int {
+    hexColor ?: return defaultColor
+    return try {
+        Color.parseColor(hexColor)
+    } catch (e: Exception) {
+        // NullPointer, IndexOutOfBounds, IllegalArgument
+        defaultColor
+    }
 }

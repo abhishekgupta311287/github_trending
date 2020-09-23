@@ -22,4 +22,11 @@ class UtilTest {
     fun `test current time`() {
         assertNotNull(getCurrentTimeMillis())
     }
+
+    @Test
+    fun `test parse color` () {
+        assertNotNull(parseColor("#525252", -1))
+
+        assertNotNull(parseColor("#52", 0))
+    }
 }

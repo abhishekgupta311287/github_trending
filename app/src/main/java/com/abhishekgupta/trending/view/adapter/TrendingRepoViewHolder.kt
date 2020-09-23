@@ -1,7 +1,6 @@
 package com.abhishekgupta.trending.view.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Build
@@ -9,6 +8,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import com.abhishekgupta.trending.R
 import com.abhishekgupta.trending.model.RepositoryDto
+import com.abhishekgupta.trending.util.parseColor
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.repository_items.view.*
 
@@ -50,17 +50,6 @@ class TrendingRepoViewHolder(view: View) : BaseViewHolder(view) {
             parseColor(hexColor, defaultColor),
             PorterDuff.Mode.SRC_IN
         )
-    }
-
-    @ColorInt
-    private fun parseColor(hexColor: String?, @ColorInt defaultColor: Int): Int {
-        hexColor ?: return defaultColor
-        return try {
-            Color.parseColor(hexColor)
-        } catch (e: Exception) {
-            // NullPointer, IndexOutOfBounds, IllegalArgument
-            defaultColor
-        }
     }
 
 }
