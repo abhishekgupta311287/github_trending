@@ -1,6 +1,7 @@
 package com.abhishekgupta.trending.repo.db
 
 import com.abhishekgupta.trending.model.ContributorDto
+import com.abhishekgupta.trending.model.RepositoryData
 import com.abhishekgupta.trending.model.RepositoryDto
 import io.mockk.every
 import io.mockk.mockk
@@ -33,16 +34,22 @@ class TrendingDaoImplTest {
         )
     )
 
+    private val data = RepositoryData(
+        10,
+        repositoryList
+    )
+
     @Test
     fun getAllTrendingRepos() {
         val trendingDao = TrendingDaoImpl(dao)
 
-        every { dao.getAllTrendingRepos() }.returns(Single.just(repositoryList))
+        every { dao.getAllTrendingRepos() }.returns(Single.just(data))
 
         val repos = trendingDao.getAllTrendingRepos()
 
-        assertEquals(1, repos.blockingGet().size)
-        assertEquals(1, repos.blockingGet()[0].builtBy.size)
+        assertEquals(1, repos.blockingGet().repos.size)
+        assertEquals(1, repos.blockingGet().repos[0].builtBy.size)
+        assertEquals(10, repos.blockingGet().lastRefresh)
 
     }
 
@@ -51,9 +58,9 @@ class TrendingDaoImplTest {
 
         val trendingDao = TrendingDaoImpl(dao)
 
-        trendingDao.insertTrendingRepos(repositoryList)
+        trendingDao.insertTrendingRepos(data)
 
-        verify { dao.insert(repositoryList) }
+        verify { dao.insert(data) }
     }
 
     @Test
