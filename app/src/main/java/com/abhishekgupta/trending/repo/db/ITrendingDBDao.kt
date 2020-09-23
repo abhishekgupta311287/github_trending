@@ -4,17 +4,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.abhishekgupta.trending.model.RepositoryDto
+import com.abhishekgupta.trending.model.RepositoryData
 import io.reactivex.Single
 
 @Dao
 interface ITrendingDBDao {
 
     @Query("SELECT * FROM trending_repos_")
-    fun getAllTrendingRepos(): Single<List<RepositoryDto>>
+    fun getAllTrendingRepos(): Single<RepositoryData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(repos: List<RepositoryDto>)
+    fun insert(repos: RepositoryData)
 
     @Query("DELETE FROM trending_repos_")
     fun deleteAll()

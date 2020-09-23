@@ -3,9 +3,9 @@ package com.abhishekgupta.trending.repo.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.abhishekgupta.trending.model.RepositoryDto
+import com.abhishekgupta.trending.model.RepositoryData
 
-@Database(entities = [RepositoryDto::class], version = 1, exportSchema = false)
+@Database(entities = [RepositoryData::class], version = 1, exportSchema = false)
 @TypeConverters(TrendingConverter::class)
 abstract class TrendingDb : RoomDatabase() {
 

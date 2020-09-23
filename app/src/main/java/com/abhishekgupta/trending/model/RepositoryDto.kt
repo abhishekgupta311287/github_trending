@@ -2,7 +2,6 @@ package com.abhishekgupta.trending.model
 
 import androidx.room.Entity
 
-@Entity(tableName = "trending_repos_", primaryKeys = ["author"])
 data class RepositoryDto(
     val author: String,
     val name: String,
