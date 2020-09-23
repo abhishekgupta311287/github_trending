@@ -1,19 +1,24 @@
 package com.abhishekgupta.trending.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.abhishekgupta.trending.RxImmediateSchedulerRule
+import com.abhishekgupta.trending.di.appModule
+import com.abhishekgupta.trending.di.dbModule
+import com.abhishekgupta.trending.di.networkModule
 import com.abhishekgupta.trending.model.RepositoryDto
 import com.abhishekgupta.trending.model.Resource
 import com.abhishekgupta.trending.repo.network.ITrendingRepository
 import com.abhishekgupta.trending.scheduler.IScheduler
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 
 class TrendingViewModelTest {
 
@@ -38,6 +43,19 @@ class TrendingViewModelTest {
         10,
         emptyList()
     )
+
+    @Before
+    fun setup() {
+        stopKoin()
+        startKoin {
+            listOf(dbModule, networkModule, appModule)
+        }
+    }
+
+    @After
+    fun close() {
+        stopKoin()
+    }
 
     @Test
     fun `test success with valid response and force refresh false`() {
