@@ -3,4 +3,6 @@
     <string name="error_title">Something went wrong…</string>
     <string name="error_subtitle_text">An allien is probably blocking your signal.</string>
     <string name="retry">Retry</string>
+    <string name="sort_by_stars">Sort by stars</string>
+    <string name="sort_by_name">Sort by name</string>
 </resources>

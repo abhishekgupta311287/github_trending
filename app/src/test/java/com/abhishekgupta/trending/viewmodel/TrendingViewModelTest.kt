@@ -13,10 +13,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 
@@ -30,9 +27,13 @@ class TrendingViewModelTest {
     @JvmField
     val rule = InstantTaskExecutorRule()
 
+    val scheduler = mockk<IScheduler>(relaxed = true)
+
+    val repositoryImpl = mockk<ITrendingRepository>(relaxed = true)
+
     private val repositoryDto = RepositoryDto(
         "author",
-        "name",
+        "Ricky",
         "avatar",
         "url",
         "desc",
@@ -50,6 +51,9 @@ class TrendingViewModelTest {
         startKoin {
             listOf(dbModule, networkModule, appModule)
         }
+
+        every { scheduler.newThread() }.returns(Schedulers.trampoline())
+        every { scheduler.mainThread() }.returns(Schedulers.trampoline())
     }
 
     @After
@@ -60,16 +64,15 @@ class TrendingViewModelTest {
     @Test
     fun `test success with valid response and force refresh false`() {
 
-        val scheduler = mockk<IScheduler>()
-
-        val repositoryImpl = mockk<ITrendingRepository>()
-
         val viewModel = TrendingViewModel(repositoryImpl, scheduler)
 
-        every { scheduler.newThread() }.returns(Schedulers.trampoline())
-        every { scheduler.mainThread() }.returns(Schedulers.trampoline())
-
-        every { repositoryImpl.getTrendingRepositories(false) }.returns(Single.just(listOf(repositoryDto)))
+        every { repositoryImpl.getTrendingRepositories(false) }.returns(
+            Single.just(
+                listOf(
+                    repositoryDto
+                )
+            )
+        )
 
         val trendingRepositories = viewModel.requestTrendingRepositories(false)
 
@@ -82,16 +85,15 @@ class TrendingViewModelTest {
     @Test
     fun `test success with valid response and force refresh true`() {
 
-        val scheduler = mockk<IScheduler>()
-
-        val repositoryImpl = mockk<ITrendingRepository>()
-
         val viewModel = TrendingViewModel(repositoryImpl, scheduler)
 
-        every { scheduler.newThread() }.returns(Schedulers.trampoline())
-        every { scheduler.mainThread() }.returns(Schedulers.trampoline())
-
-        every { repositoryImpl.getTrendingRepositories(true) }.returns(Single.just(listOf(repositoryDto)))
+        every { repositoryImpl.getTrendingRepositories(true) }.returns(
+            Single.just(
+                listOf(
+                    repositoryDto
+                )
+            )
+        )
 
         val trendingRepositories = viewModel.requestTrendingRepositories(true)
 
@@ -102,16 +104,9 @@ class TrendingViewModelTest {
     }
 
     @Test
-    fun `test error`() {
-
-        val scheduler = mockk<IScheduler>()
-
-        val repositoryImpl = mockk<ITrendingRepository>()
+    fun `test api error `() {
 
         val viewModel = TrendingViewModel(repositoryImpl, scheduler)
-
-        every { scheduler.newThread() }.returns(Schedulers.trampoline())
-        every { scheduler.mainThread() }.returns(Schedulers.trampoline())
 
         every { repositoryImpl.getTrendingRepositories() }.returns(Single.error(Exception()))
 
@@ -123,14 +118,7 @@ class TrendingViewModelTest {
     @Test
     fun `test invalid response`() {
 
-        val scheduler = mockk<IScheduler>()
-
-        val repositoryImpl = mockk<ITrendingRepository>()
-
         val viewModel = TrendingViewModel(repositoryImpl, scheduler)
-
-        every { scheduler.newThread() }.returns(Schedulers.trampoline())
-        every { scheduler.mainThread() }.returns(Schedulers.trampoline())
 
         every { repositoryImpl.getTrendingRepositories() }.returns(Single.just(emptyList()))
 
@@ -140,4 +128,38 @@ class TrendingViewModelTest {
 
     }
 
+    @Test
+    fun `test sort by name`() {
+        val viewModel = TrendingViewModel(repositoryImpl, scheduler)
+        val list = arrayListOf(repositoryDto)
+
+        list.add(repositoryDto.copy(name = "Abhishek"))
+
+        every { repositoryImpl.getTrendingRepositories() }.returns(Single.just(list))
+
+        val repos = viewModel.requestTrendingRepositories()
+
+        Assert.assertEquals("Ricky", list[0].name)
+
+        viewModel.sortByName()
+        Assert.assertEquals("Abhishek", repos.value?.data?.get(0)?.name)
+
+    }
+
+    @Test
+    fun `test sort by stars`() {
+        val viewModel = TrendingViewModel(repositoryImpl, scheduler)
+        val list = arrayListOf(repositoryDto)
+
+        list.add(repositoryDto.copy(stars =100))
+
+        every { repositoryImpl.getTrendingRepositories() }.returns(Single.just(list))
+
+        val repos = viewModel.requestTrendingRepositories()
+
+        Assert.assertEquals(10, list[0].stars)
+
+        viewModel.sortByStars()
+        Assert.assertEquals(100, repos.value?.data?.get(0)?.stars)
+    }
 }

@@ -9,6 +9,7 @@ import com.abhishekgupta.trending.model.Resource
 import com.abhishekgupta.trending.repo.network.ITrendingRepository
 import com.abhishekgupta.trending.scheduler.IScheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.util.*
 
 class TrendingViewModel(
     private val repository: ITrendingRepository,
@@ -44,6 +45,22 @@ class TrendingViewModel(
                         trendingLiveData.postValue(Resource.Error(it.message))
                     })
         )
+    }
+
+    fun sortByStars() {
+        trendingLiveData.value?.data?.let {repos ->
+            trendingLiveData.postValue(
+                Resource.Success(repos.sortedByDescending { it.stars }.toList())
+            )
+        }
+    }
+
+    fun sortByName() {
+        trendingLiveData.value?.data?.let {repos ->
+            trendingLiveData.postValue(
+                Resource.Success(repos.sortedBy { it.name.toLowerCase(Locale.getDefault()) }.toList())
+            )
+        }
     }
 
     override fun onCleared() {
