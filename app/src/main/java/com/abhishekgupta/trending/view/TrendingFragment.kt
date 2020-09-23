@@ -68,14 +68,14 @@ class TrendingFragment : Fragment() {
 
     private fun handlePullToRefreshAction() {
         swipeRefresh.setOnRefreshListener {
-            fetchRepos()
+            fetchRepos(true)
         }
     }
 
-    private fun fetchRepos() {
+    private fun fetchRepos(forceRefresh: Boolean = false) {
         val viewModel: TrendingViewModel = get() // by koin dependency injection
         viewModel
-            .requestTrendingRepositories()
+            .requestTrendingRepositories(forceRefresh)
             .observe(viewLifecycleOwner, Observer {
 
                 when(it) {

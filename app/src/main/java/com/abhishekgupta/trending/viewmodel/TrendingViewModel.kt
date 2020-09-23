@@ -18,16 +18,16 @@ class TrendingViewModel(
     private val disposable: CompositeDisposable = CompositeDisposable()
     private val trendingLiveData: MutableLiveData<Resource<List<RepositoryDto>>> = MutableLiveData()
 
-    fun requestTrendingRepositories(): LiveData<Resource<List<RepositoryDto>>> {
+    fun requestTrendingRepositories(forceRefresh: Boolean = false): LiveData<Resource<List<RepositoryDto>>> {
 
-        fetchTrendingRepositories()
+        fetchTrendingRepositories(forceRefresh)
 
         return trendingLiveData
     }
 
-    private fun fetchTrendingRepositories() {
+    private fun fetchTrendingRepositories(forceRefresh: Boolean) {
         disposable.add(
-            repository.getTrendingRepositories()
+            repository.getTrendingRepositories(forceRefresh)
                 .subscribeOn(scheduler.newThread())
                 .observeOn(scheduler.mainThread())
                 .doOnSubscribe { trendingLiveData.postValue(Resource.Loading()) }
