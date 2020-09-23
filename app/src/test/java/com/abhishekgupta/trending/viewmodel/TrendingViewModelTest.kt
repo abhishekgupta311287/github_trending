@@ -74,11 +74,11 @@ class TrendingViewModelTest {
             )
         )
 
-        val trendingRepositories = viewModel.requestTrendingRepositories(false)
+        viewModel.requestTrendingRepositories(false)
 
-        assert(trendingRepositories.value is Resource.Success)
+        assert(viewModel.trendingLiveData.value is Resource.Success)
 
-        assert(trendingRepositories.value!!.data!!.isNotEmpty())
+        assert(viewModel.trendingLiveData.value?.data!!.isNotEmpty())
 
     }
 
@@ -95,11 +95,11 @@ class TrendingViewModelTest {
             )
         )
 
-        val trendingRepositories = viewModel.requestTrendingRepositories(true)
+        viewModel.requestTrendingRepositories(true)
 
-        assert(trendingRepositories.value is Resource.Success)
+        assert(viewModel.trendingLiveData.value is Resource.Success)
 
-        assert(trendingRepositories.value!!.data!!.isNotEmpty())
+        assert(viewModel.trendingLiveData.value?.data!!.isNotEmpty())
 
     }
 
@@ -110,9 +110,9 @@ class TrendingViewModelTest {
 
         every { repositoryImpl.getTrendingRepositories() }.returns(Single.error(Exception()))
 
-        val trendingRepositories = viewModel.requestTrendingRepositories()
+        viewModel.requestTrendingRepositories()
 
-        assert(trendingRepositories.value is Resource.Error)
+        assert(viewModel.trendingLiveData.value is Resource.Error)
     }
 
     @Test
@@ -122,9 +122,9 @@ class TrendingViewModelTest {
 
         every { repositoryImpl.getTrendingRepositories() }.returns(Single.just(emptyList()))
 
-        val trendingRepositories = viewModel.requestTrendingRepositories()
+        viewModel.requestTrendingRepositories()
 
-        assert(trendingRepositories.value is Resource.Error)
+        assert(viewModel.trendingLiveData.value is Resource.Error)
 
     }
 
@@ -137,12 +137,12 @@ class TrendingViewModelTest {
 
         every { repositoryImpl.getTrendingRepositories() }.returns(Single.just(list))
 
-        val repos = viewModel.requestTrendingRepositories()
+        viewModel.requestTrendingRepositories()
 
         Assert.assertEquals("Ricky", list[0].name)
 
         viewModel.sortByName()
-        Assert.assertEquals("Abhishek", repos.value?.data?.get(0)?.name)
+        Assert.assertEquals("Abhishek", viewModel.trendingLiveData.value?.data?.get(0)?.name)
 
     }
 
@@ -151,15 +151,15 @@ class TrendingViewModelTest {
         val viewModel = TrendingViewModel(repositoryImpl, scheduler)
         val list = arrayListOf(repositoryDto)
 
-        list.add(repositoryDto.copy(stars =100))
+        list.add(repositoryDto.copy(stars = 100))
 
         every { repositoryImpl.getTrendingRepositories() }.returns(Single.just(list))
 
-        val repos = viewModel.requestTrendingRepositories()
+        viewModel.requestTrendingRepositories()
 
         Assert.assertEquals(10, list[0].stars)
 
         viewModel.sortByStars()
-        Assert.assertEquals(100, repos.value?.data?.get(0)?.stars)
+        Assert.assertEquals(100, viewModel.trendingLiveData.value?.data?.get(0)?.stars)
     }
 }

@@ -1,7 +1,6 @@
 package com.abhishekgupta.trending.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.abhishekgupta.trending.model.RepositoryDto
@@ -17,16 +16,9 @@ class TrendingViewModel(
 ) : ViewModel() {
 
     private val disposable: CompositeDisposable = CompositeDisposable()
-    private val trendingLiveData: MutableLiveData<Resource<List<RepositoryDto>>> = MutableLiveData()
+   val trendingLiveData: MutableLiveData<Resource<List<RepositoryDto>>> = MutableLiveData()
 
-    fun requestTrendingRepositories(forceRefresh: Boolean = false): LiveData<Resource<List<RepositoryDto>>> {
-
-        fetchTrendingRepositories(forceRefresh)
-
-        return trendingLiveData
-    }
-
-    private fun fetchTrendingRepositories(forceRefresh: Boolean) {
+    fun requestTrendingRepositories(forceRefresh: Boolean = false) {
         disposable.add(
             repository.getTrendingRepositories(forceRefresh)
                 .subscribeOn(scheduler.newThread())

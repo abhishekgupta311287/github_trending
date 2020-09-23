@@ -38,6 +38,7 @@ class TrendingFragment : Fragment() {
         initTrendingView()
         handleRetryButtonAction()
         handlePullToRefreshAction()
+        observeLiveData()
         fetchRepos()
     }
 
@@ -76,11 +77,9 @@ class TrendingFragment : Fragment() {
         }
     }
 
-    private fun fetchRepos(forceRefresh: Boolean = false) {
-        viewModel
-            .requestTrendingRepositories(forceRefresh)
+    private fun observeLiveData() {
+        viewModel.trendingLiveData
             .observe(viewLifecycleOwner, Observer {
-
                 when (it) {
                     is Resource.Success -> {
                         hideShimmerLoading()
@@ -100,6 +99,11 @@ class TrendingFragment : Fragment() {
                 }
 
             })
+    }
+
+    private fun fetchRepos(forceRefresh: Boolean = false) {
+        viewModel
+            .requestTrendingRepositories(forceRefresh)
     }
 
     private fun hideShimmerLoading() {
