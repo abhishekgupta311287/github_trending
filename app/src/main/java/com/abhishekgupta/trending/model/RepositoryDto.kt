@@ -1,7 +1,5 @@
 package com.abhishekgupta.trending.model
 
-import androidx.room.Entity
-
 data class RepositoryDto(
     val author: String,
     val name: String,

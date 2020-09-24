@@ -2,7 +2,6 @@ package com.abhishekgupta.trending
 
 import android.app.Application
 import android.content.Context
-import androidx.annotation.VisibleForTesting
 import androidx.multidex.MultiDex
 import com.abhishekgupta.trending.di.appModule
 import com.abhishekgupta.trending.di.dbModule
