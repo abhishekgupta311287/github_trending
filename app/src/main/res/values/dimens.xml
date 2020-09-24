@@ -15,7 +15,6 @@
     <dimen name="lang_margin_top">8dp</dimen>
     <dimen name="stars_margin_top">8dp</dimen>
     <dimen name="fork_margin_top">8dp</dimen>
-    <dimen name="circular_image_border">0.5dp</dimen>
 
     <dimen name="author_text_size">12sp</dimen>
     <dimen name="name_text_size">15sp</dimen>
@@ -24,14 +23,12 @@
     <dimen name="stars_text_size">12sp</dimen>
     <dimen name="forks_text_size">12sp</dimen>
     <dimen name="desc_margin_top">8dp</dimen>
-    <dimen name="desc_margin_end">16dp</dimen>
     <dimen name="lang_drawable_padding">8dp</dimen>
     <dimen name="stars_drawable_padding">4dp</dimen>
     <dimen name="forks_drawable_padding">4dp</dimen>
     <dimen name="stars_margin_start">16dp</dimen>
     <dimen name="forks_margin_start">16dp</dimen>
 
-    <dimen name="app_bar_height">180dp</dimen>
     <dimen name="circular_image_top">21dp</dimen>
     <dimen name="placeholder_padding">21dp</dimen>
     <dimen name="placeholder_margin">16dp</dimen>

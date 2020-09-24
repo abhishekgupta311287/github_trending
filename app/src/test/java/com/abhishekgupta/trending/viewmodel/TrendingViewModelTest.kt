@@ -27,9 +27,9 @@ class TrendingViewModelTest {
     @JvmField
     val rule = InstantTaskExecutorRule()
 
-    val scheduler = mockk<IScheduler>(relaxed = true)
+    private val scheduler = mockk<IScheduler>(relaxed = true)
 
-    val repositoryImpl = mockk<ITrendingRepository>(relaxed = true)
+    private val repositoryImpl = mockk<ITrendingRepository>(relaxed = true)
 
     private val repositoryDto = RepositoryDto(
         "author",

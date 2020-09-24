@@ -33,7 +33,7 @@ class TrendingRepositoryImplTest {
     private val context = mockk<Context>(relaxed = true)
     private val scheduler = mockk<IScheduler>(relaxed = true)
 
-    val repositoryDto = RepositoryDto(
+    private val repositoryDto = RepositoryDto(
         "author",
         "name",
         "avatar",
