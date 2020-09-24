@@ -77,6 +77,8 @@ dependencies {
     testImplementation "junit:junit:$versions.junit"
     testImplementation "io.mockk:mockk:$versions.mockk"
     testImplementation "androidx.arch.core:core-testing:$versions.core_testing"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
+
     androidTestImplementation "androidx.test.ext:junit:$versions.junit_ext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
 

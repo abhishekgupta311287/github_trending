@@ -36,6 +36,7 @@ buildscript {
         versions.junit_ext = '1.1.2'
         versions.espresso = '3.3.0'
         versions.mockk = '1.10.0'
+        versions.mockwebserver = '4.6.0'
         versions.core_testing = '2.1.0'
     }
 

@@ -1,0 +1,41 @@
+[
+  {
+    "author": "cli",
+    "name": "cli",
+    "avatar": "https://github.com/cli.png",
+    "url": "https://github.com/cli/cli",
+    "description": "GitHub’s official command line tool",
+    "language": "Go",
+    "languageColor": "#00ADD8",
+    "stars": 14930,
+    "forks": 988,
+    "currentPeriodStars": 778,
+    "builtBy": [
+      {
+        "username": "mislav",
+        "href": "https://github.com/mislav",
+        "avatar": "https://avatars2.githubusercontent.com/u/887"
+      },
+      {
+        "username": "vilmibm",
+        "href": "https://github.com/vilmibm",
+        "avatar": "https://avatars3.githubusercontent.com/u/98482"
+      },
+      {
+        "username": "probablycorey",
+        "href": "https://github.com/probablycorey",
+        "avatar": "https://avatars2.githubusercontent.com/u/596"
+      },
+      {
+        "username": "doi-t",
+        "href": "https://github.com/doi-t",
+        "avatar": "https://avatars0.githubusercontent.com/u/5877477"
+      },
+      {
+        "username": "AliabbasMerchant",
+        "href": "https://github.com/AliabbasMerchant",
+        "avatar": "https://avatars3.githubusercontent.com/u/32998057"
+      }
+    ]
+  }
+]
