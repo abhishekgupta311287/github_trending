@@ -12,6 +12,7 @@ android {
         targetSdkVersion build_versions.target_sdk
         versionCode build_versions.version_code
         versionName build_versions.version_name
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +23,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -57,8 +60,12 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+
+    // older okhttp version to support api 19
     implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+
+    implementation "androidx.multidex:multidex:$versions.multidex"
 
     implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
     implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"

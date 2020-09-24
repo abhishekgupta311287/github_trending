@@ -22,10 +22,12 @@ buildscript {
 
         versions.glide = '4.11.0'
         versions.retrofit = '2.6.0'
-        versions.okhttp = '3.14.6'
+        versions.okhttp = '3.12.10' // older okhttp version to support api 19
 
         versions.rxjava = '2.2.17'
         versions.rxandroid = '2.1.1'
+
+        versions.multidex = '2.0.1'
 
         versions.room = '2.2.5'
         versions.room_compiler = '2.0.0'

@@ -1,6 +1,9 @@
 package com.abhishekgupta.trending
 
 import android.app.Application
+import android.content.Context
+import androidx.annotation.VisibleForTesting
+import androidx.multidex.MultiDex
 import com.abhishekgupta.trending.di.appModule
 import com.abhishekgupta.trending.di.dbModule
 import com.abhishekgupta.trending.di.networkModule
@@ -24,5 +27,11 @@ class TrendingApplication : Application() {
                 )
             )
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+
     }
 }
