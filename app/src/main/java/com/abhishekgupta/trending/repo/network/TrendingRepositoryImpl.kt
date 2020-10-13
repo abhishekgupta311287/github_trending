@@ -28,18 +28,6 @@ class TrendingRepositoryImpl(
             fetchRepoFromApi(emptyList())
         }
 
-
-//            .subscribeOn(scheduler.io())
-//            .flatMap { data ->
-//                if (shouldFetchFromRemote(forceRefresh, data)) {
-//                    fetchRepoFromApi(data.repos)
-//                } else {
-//                    Single.just(data.repos)
-//                }
-//            }.onErrorResumeNext {
-//                fetchRepoFromApi(emptyList())
-//            }
-
     }
 
     private fun shouldFetchFromRemote(
@@ -72,30 +60,6 @@ class TrendingRepositoryImpl(
         } catch (e: Exception) {
             repos
         }
-
-
-//        return
-//        if (context.isNetworkAvailable() == true) {
-//            api.getTrendingRepositories()
-//                .subscribeOn(scheduler.newThread())
-//                .flatMap {
-//                    if (it.isNullOrEmpty()) {
-//                        Single.just(repos)
-//                    } else {
-//                        dao.deleteAll()
-//                        dao.insertTrendingRepos(
-//                            RepositoryData(getCurrentTimeMillis(), it)
-//                        )
-//                        Single.just(it)
-//                    }
-//                }
-//                .onErrorReturn {
-//                    repos
-//                }
-//        } else {
-//            Single.just(repos)
-//        }
-//
     }
 
     companion object {

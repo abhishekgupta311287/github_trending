@@ -23,13 +23,11 @@ val networkModule = module {
     }
 
     single {
-//        val factory = RxJava2CallAdapterFactory.create()
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://ghapi.huchen.dev")
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(factory)
             .build()
 
         val api = retrofit.create(ITrendingApi::class.java)

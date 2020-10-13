@@ -13,7 +13,6 @@ class TrendingViewModel(
     private val repository: ITrendingRepository
 ) : ViewModel() {
 
-    //    private val disposable: CompositeDisposable = CompositeDisposable()
     val trendingLiveData: MutableLiveData<Resource<List<RepositoryDto>>> = MutableLiveData()
 
     fun requestTrendingRepositories(forceRefresh: Boolean = false) {
@@ -27,25 +26,6 @@ class TrendingViewModel(
             }
 
         }
-
-//        disposable.add(
-//            repository.getTrendingRepositories(forceRefresh)
-//                .subscribeOn(scheduler.newThread())
-//                .observeOn(scheduler.mainThread())
-//                .doOnSubscribe { trendingLiveData.postValue(Resource.Loading()) }
-//                .subscribe(
-//                    {
-//                        if (it.isNullOrEmpty()) {
-//                            trendingLiveData.postValue(Resource.Error("List is null or empty"))
-//                        } else {
-//                            trendingLiveData.postValue(Resource.Success(it))
-//                        }
-//                    },
-//                    {
-//                        Log.e("TrendingViewModel", it.message, it)
-//                        trendingLiveData.postValue(Resource.Error(it.message))
-//                    })
-//        )
     }
 
     fun sortByStars() {
@@ -65,8 +45,4 @@ class TrendingViewModel(
         }
     }
 
-//    override fun onCleared() {
-//        super.onCleared()
-//        disposable.clear()
-//    }
 }
