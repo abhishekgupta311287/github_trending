@@ -1,13 +1,12 @@
 package com.abhishekgupta.trending.repo.db
 
 import com.abhishekgupta.trending.model.RepositoryData
-import io.reactivex.Single
 
 interface ITrendingDao {
 
-    fun getAllTrendingRepos(): Single<RepositoryData>
+    suspend fun getAllTrendingRepos(): RepositoryData
 
-    fun insertTrendingRepos(repos: RepositoryData)
+    suspend fun insertTrendingRepos(repos: RepositoryData)
 
-    fun deleteAll()
+    suspend fun deleteAll()
 }

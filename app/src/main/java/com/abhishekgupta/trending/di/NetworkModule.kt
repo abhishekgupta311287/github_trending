@@ -6,7 +6,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
@@ -24,13 +23,13 @@ val networkModule = module {
     }
 
     single {
-        val factory = RxJava2CallAdapterFactory.create()
+//        val factory = RxJava2CallAdapterFactory.create()
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://ghapi.huchen.dev")
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(factory)
+//            .addCallAdapterFactory(factory)
             .build()
 
         val api = retrofit.create(ITrendingApi::class.java)

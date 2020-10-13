@@ -5,13 +5,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.abhishekgupta.trending.model.RepositoryData
-import io.reactivex.Single
 
 @Dao
 interface ITrendingDBDao {
 
     @Query("SELECT * FROM trending_repos_")
-    fun getAllTrendingRepos(): Single<RepositoryData>
+    fun getAllTrendingRepos(): RepositoryData
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(repos: RepositoryData)
