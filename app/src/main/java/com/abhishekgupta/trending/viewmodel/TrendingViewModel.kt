@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.abhishekgupta.trending.model.RepositoryDto
 import com.abhishekgupta.trending.model.Resource
 import com.abhishekgupta.trending.repo.network.ITrendingRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -16,7 +17,7 @@ class TrendingViewModel(
     val trendingLiveData: MutableLiveData<Resource<List<RepositoryDto>>> = MutableLiveData()
 
     fun requestTrendingRepositories(forceRefresh: Boolean = false) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             trendingLiveData.postValue(Resource.Loading())
             val trendingRepositories = repository.getTrendingRepositories(forceRefresh)
             if (trendingRepositories.isNullOrEmpty()) {
