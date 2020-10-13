@@ -1,6 +1,5 @@
 package com.abhishekgupta.trending.repo.db
 
-import androidx.room.EmptyResultSetException
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -66,10 +65,10 @@ class ITrendingDBDaoTest {
 
         val repos = db.trendingDao().getAllTrendingRepos()
 
-        Assert.assertEquals(1, repos.blockingGet().repos.size)
+        Assert.assertEquals(1, repos.repos.size)
     }
 
-    @Test(expected = EmptyResultSetException::class)
+    @Test
     fun deleteAll() {
         repositoryList.add(repositoryDto.copy(author = "author1"))
         db.trendingDao().insert(
@@ -81,13 +80,13 @@ class ITrendingDBDaoTest {
 
         var repos = db.trendingDao().getAllTrendingRepos()
 
-        Assert.assertEquals(2, repos.blockingGet().repos.size)
+        Assert.assertEquals(2, repos.repos.size)
 
         db.trendingDao().deleteAll()
 
         repos = db.trendingDao().getAllTrendingRepos()
 
-        assert(repos.blockingGet().repos.isEmpty())
+        Assert.assertNull(repos)
     }
 
     @Test
@@ -103,7 +102,7 @@ class ITrendingDBDaoTest {
 
         val repos = db.trendingDao().getAllTrendingRepos()
 
-        Assert.assertEquals(3, repos.blockingGet().repos.size)
+        Assert.assertEquals(3, repos.repos.size)
 
     }
 }

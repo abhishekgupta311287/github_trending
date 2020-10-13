@@ -2,27 +2,19 @@ package com.abhishekgupta.trending.repo.network
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.abhishekgupta.trending.RxImmediateSchedulerRule
 import com.abhishekgupta.trending.model.RepositoryData
 import com.abhishekgupta.trending.model.RepositoryDto
 import com.abhishekgupta.trending.repo.db.ITrendingDao
-import com.abhishekgupta.trending.scheduler.IScheduler
 import com.abhishekgupta.trending.util.getCurrentTimeMillis
 import com.abhishekgupta.trending.util.isNetworkAvailable
-import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import org.junit.Before
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 
 class TrendingRepositoryImplTest {
-
-    @Rule
-    @JvmField
-    var testSchedulerRule = RxImmediateSchedulerRule()
 
     @Rule
     @JvmField
@@ -31,7 +23,6 @@ class TrendingRepositoryImplTest {
     private val api = mockk<ITrendingApi>(relaxed = true)
     private val dao = mockk<ITrendingDao>(relaxed = true)
     private val context = mockk<Context>(relaxed = true)
-    private val scheduler = mockk<IScheduler>(relaxed = true)
 
     private val repositoryDto = RepositoryDto(
         "author",
@@ -47,169 +38,143 @@ class TrendingRepositoryImplTest {
         emptyList()
     )
 
-    @Before
-    fun setup() {
-        every { scheduler.newThread() }.returns(Schedulers.trampoline())
-        every { scheduler.mainThread() }.returns(Schedulers.trampoline())
-        every { scheduler.io() }.returns(Schedulers.trampoline())
-
-    }
-
     @Test
-    fun `test repo availability from db and no api call`() {
+    fun `test repo availability from db and no api call`() = runBlocking {
 
-        val repository = TrendingRepositoryImpl(api, dao, scheduler, context)
+        val repository = TrendingRepositoryImpl(api, dao, context)
 
-        every { dao.getAllTrendingRepos() }.returns(
-            Single.just(
-                RepositoryData(
-                    getCurrentTimeMillis(),
-                    listOf(repositoryDto)
-                )
+        coEvery { dao.getAllTrendingRepos() }.returns(
+            RepositoryData(
+                getCurrentTimeMillis(),
+                listOf(repositoryDto)
             )
         )
-        every { context.isNetworkAvailable() }.returns(true)
+        coEvery { context.isNetworkAvailable() }.returns(true)
 
-        every { api.getTrendingRepositories() }.returns(Single.just(listOf(repositoryDto)))
+        coEvery { api.getTrendingRepositories() }.returns(listOf(repositoryDto))
 
         val trendingRepositories = repository.getTrendingRepositories()
 
-        verify(exactly = 0) { api.getTrendingRepositories() }
+        coVerify(exactly = 0) { api.getTrendingRepositories() }
 
-        assert(trendingRepositories.blockingGet().isNotEmpty())
+        assert(trendingRepositories.isNotEmpty())
     }
 
     @Test
-    fun `test no db data and no api call`() {
+    fun `test no db data and no api call`() = runBlocking {
 
-        val repository = TrendingRepositoryImpl(api, dao, scheduler, context)
+        val repository = TrendingRepositoryImpl(api, dao, context)
 
-        every { dao.getAllTrendingRepos() }.returns(
-            Single.just(
-                RepositoryData(
-                    0,
-                    emptyList()
-                )
+        coEvery { dao.getAllTrendingRepos() }.returns(
+            RepositoryData(
+                0,
+                emptyList()
             )
         )
-        every { context.isNetworkAvailable() }.returns(true)
+        coEvery { context.isNetworkAvailable() }.returns(true)
 
-        every { api.getTrendingRepositories() }.returns(Single.just(listOf(repositoryDto)))
+        coEvery { api.getTrendingRepositories() }.returns(listOf(repositoryDto))
 
         val trendingRepositories = repository.getTrendingRepositories()
 
-        assert(trendingRepositories.blockingGet().isNotEmpty())
+        assert(trendingRepositories.isNotEmpty())
     }
 
     @Test
-    fun `test db error`() {
+    fun `test db error`() = runBlocking {
 
-        val repository = TrendingRepositoryImpl(api, dao, scheduler, context)
+        val repository = TrendingRepositoryImpl(api, dao, context)
 
-        every { dao.getAllTrendingRepos() }.returns(
-            Single.error(Exception("db error"))
-        )
-        every { context.isNetworkAvailable() }.returns(true)
+        coEvery { dao.getAllTrendingRepos() }.throws(Exception())
+        coEvery { context.isNetworkAvailable() }.returns(true)
 
-        every { api.getTrendingRepositories() }.returns(Single.just(listOf(repositoryDto)))
+        coEvery { api.getTrendingRepositories() }.returns(listOf(repositoryDto))
 
         val trendingRepositories = repository.getTrendingRepositories()
 
-        assert(trendingRepositories.blockingGet().isNotEmpty())
+        assert(trendingRepositories.isNotEmpty())
     }
 
     @Test
-    fun `test no db data and no api call error`() {
+    fun `test no db data and no api call error`() = runBlocking {
 
-        val repository = TrendingRepositoryImpl(api, dao, scheduler, context)
+        val repository = TrendingRepositoryImpl(api, dao, context)
 
-        every { dao.getAllTrendingRepos() }.returns(
-            Single.just(
-                RepositoryData(
-                    0,
-                    emptyList()
-                )
+        coEvery { dao.getAllTrendingRepos() }.returns(
+            RepositoryData(
+                0,
+                emptyList()
             )
         )
-        every { context.isNetworkAvailable() }.returns(true)
+        coEvery { context.isNetworkAvailable() }.returns(true)
 
-        every { api.getTrendingRepositories() }.returns(Single.error(Exception("Network failure")))
+        coEvery { api.getTrendingRepositories() }.throws(Exception())
 
         val trendingRepositories = repository.getTrendingRepositories()
 
-        assert(trendingRepositories.blockingGet().isEmpty())
+        assert(trendingRepositories.isEmpty())
     }
 
     @Test
-    fun `test offline data availability and force refresh`() {
+    fun `test offline data availability and force refresh`() = runBlocking {
 
-        val repository = TrendingRepositoryImpl(api, dao, scheduler, context)
+        val repository = TrendingRepositoryImpl(api, dao, context)
 
-        every { dao.getAllTrendingRepos() }.returns(
-            Single.just(
-                RepositoryData(
-                    getCurrentTimeMillis(),
-                    listOf(repositoryDto)
-                )
+        coEvery { dao.getAllTrendingRepos() }.returns(
+            RepositoryData(
+                getCurrentTimeMillis(),
+                listOf(repositoryDto)
             )
         )
-        every { context.isNetworkAvailable() }.returns(false)
+        coEvery { context.isNetworkAvailable() }.returns(false)
 
-        every { api.getTrendingRepositories() }.returns(Single.just(listOf(repositoryDto)))
+        coEvery { api.getTrendingRepositories() }.returns(listOf(repositoryDto))
 
         val trendingRepositories = repository.getTrendingRepositories(true)
 
-        verify(exactly = 0) { api.getTrendingRepositories() }
+        coVerify(exactly = 0) { api.getTrendingRepositories() }
 
-        assert(trendingRepositories.blockingGet().isNotEmpty())
+        assert(trendingRepositories.isNotEmpty())
     }
 
     @Test
-    fun `test data availability when api retrun empty list`() {
+    fun `test data availability when api return empty list`() = runBlocking {
 
-        val repository = TrendingRepositoryImpl(api, dao, scheduler, context)
+        val repository = TrendingRepositoryImpl(api, dao, context)
 
-        every { dao.getAllTrendingRepos() }.returns(
-            Single.just(
-                RepositoryData(
-                    getCurrentTimeMillis(),
-                    listOf(repositoryDto)
-                )
+        coEvery { dao.getAllTrendingRepos() }.returns(
+            RepositoryData(
+                getCurrentTimeMillis(),
+                listOf(repositoryDto)
             )
         )
-        every { context.isNetworkAvailable() }.returns(true)
+        coEvery { context.isNetworkAvailable() }.returns(true)
 
-        every { api.getTrendingRepositories() }.returns(Single.just(emptyList()))
+        coEvery { api.getTrendingRepositories() }.returns(emptyList())
 
         val trendingRepositories = repository.getTrendingRepositories(true)
 
-        verify(exactly = 0) { api.getTrendingRepositories() }
-
-        assert(trendingRepositories.blockingGet().isNotEmpty())
+        assert(trendingRepositories.isNotEmpty())
     }
 
     @Test
-    fun `test no data availability when api return empty list and no data in db`() {
+    fun `test no data availability when api return empty list and no data in db`() = runBlocking {
 
-        val repository = TrendingRepositoryImpl(api, dao, scheduler, context)
+        val repository = TrendingRepositoryImpl(api, dao, context)
 
-        every { dao.getAllTrendingRepos() }.returns(
-            Single.just(
-                RepositoryData(
-                    0,
-                    emptyList()
-                )
+        coEvery { dao.getAllTrendingRepos() }.returns(
+            RepositoryData(
+                0,
+                emptyList()
             )
         )
-        every { context.isNetworkAvailable() }.returns(true)
+        coEvery { context.isNetworkAvailable() }.returns(true)
 
-        every { api.getTrendingRepositories() }.returns(Single.just(emptyList()))
+        coEvery { api.getTrendingRepositories() }.returns(emptyList())
 
         val trendingRepositories = repository.getTrendingRepositories(true)
 
-        verify(exactly = 0) { api.getTrendingRepositories() }
-
-        assert(trendingRepositories.blockingGet().isEmpty())
+        assert(trendingRepositories.isEmpty())
     }
 
 }

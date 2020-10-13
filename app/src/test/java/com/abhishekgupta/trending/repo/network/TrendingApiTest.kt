@@ -1,15 +1,14 @@
 package com.abhishekgupta.trending.repo.network
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 import org.hamcrest.CoreMatchers
 import org.junit.*
-import retrofit2.HttpException
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.io.InputStreamReader
@@ -30,7 +29,6 @@ class TrendingApiTest {
         val retrofit = Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         api = retrofit.create(ITrendingApi::class.java)
@@ -38,7 +36,7 @@ class TrendingApiTest {
     }
 
     @Test
-    fun `trending repos success`() {
+    fun `trending repos success`() = runBlocking {
         mockWebServer.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
                 return MockResponse()
@@ -46,7 +44,7 @@ class TrendingApiTest {
                     .setBody(readStringFromFile("success.json"))
             }
         }
-        val repos = api.getTrendingRepositories().blockingGet()
+        val repos = api.getTrendingRepositories()
         val request = mockWebServer.takeRequest()
 
         Assert.assertThat(request.path, CoreMatchers.`is`("/repositories"))
@@ -76,18 +74,6 @@ class TrendingApiTest {
             CoreMatchers.`is`("https://avatars2.githubusercontent.com/u/887")
         )
         Assert.assertThat(builtBy[0].href, CoreMatchers.`is`("https://github.com/mislav"))
-
-    }
-
-    @Test(expected = HttpException::class)
-    fun `trending repos failure`() {
-        mockWebServer.dispatcher = object : Dispatcher() {
-            override fun dispatch(request: RecordedRequest): MockResponse {
-                return MockResponse()
-                    .setResponseCode(500)
-            }
-        }
-        api.getTrendingRepositories().blockingGet()
 
     }
 

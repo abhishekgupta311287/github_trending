@@ -6,7 +6,7 @@ import com.abhishekgupta.trending.model.RepositoryDto
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import io.reactivex.Single
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -40,21 +40,21 @@ class TrendingDaoImplTest {
     )
 
     @Test
-    fun getAllTrendingRepos() {
+    fun getAllTrendingRepos() = runBlocking {
         val trendingDao = TrendingDaoImpl(dao)
 
-        every { dao.getAllTrendingRepos() }.returns(Single.just(data))
+        every { dao.getAllTrendingRepos() }.returns(data)
 
         val repos = trendingDao.getAllTrendingRepos()
 
-        assertEquals(1, repos.blockingGet().repos.size)
-        assertEquals(1, repos.blockingGet().repos[0].builtBy.size)
-        assertEquals(10, repos.blockingGet().lastRefresh)
+        assertEquals(1, repos.repos.size)
+        assertEquals(1, repos.repos[0].builtBy.size)
+        assertEquals(10, repos.lastRefresh)
 
     }
 
     @Test
-    fun insertTrendingRepos() {
+    fun insertTrendingRepos() = runBlocking {
 
         val trendingDao = TrendingDaoImpl(dao)
 
@@ -64,7 +64,7 @@ class TrendingDaoImplTest {
     }
 
     @Test
-    fun deleteAll() {
+    fun deleteAll() = runBlocking {
         val trendingDao = TrendingDaoImpl(dao)
 
         trendingDao.deleteAll()
