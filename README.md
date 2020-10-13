@@ -49,7 +49,7 @@ TrendingDaoImpl is tested using local unit tests with mock dao implementations.
 * Facebook Shimmer Library for shimmer loading effect
 * Koin for dependency injection
 * Retrofit and OkHttp for REST api communication
-* RxJava and RxAndroid for reactive programming
+* Kotline coroutines
 * Glide for image loading
 * Espresso for UI tests
 * Mockwebserver for api test
