@@ -3,9 +3,9 @@ package com.abhishekgupta.trending.repo.db
 import com.abhishekgupta.trending.model.ContributorDto
 import com.abhishekgupta.trending.model.RepositoryData
 import com.abhishekgupta.trending.model.RepositoryDto
-import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -43,7 +43,7 @@ class TrendingDaoImplTest {
     fun getAllTrendingRepos() = runBlocking {
         val trendingDao = TrendingDaoImpl(dao)
 
-        every { dao.getAllTrendingRepos() }.returns(data)
+        coEvery { dao.getAllTrendingRepos() }.returns(data)
 
         val repos = trendingDao.getAllTrendingRepos()
 
@@ -60,7 +60,7 @@ class TrendingDaoImplTest {
 
         trendingDao.insertTrendingRepos(data)
 
-        verify { dao.insert(data) }
+        coVerify { dao.insert(data) }
     }
 
     @Test
@@ -69,6 +69,6 @@ class TrendingDaoImplTest {
 
         trendingDao.deleteAll()
 
-        verify { dao.deleteAll() }
+        coVerify { dao.deleteAll() }
     }
 }

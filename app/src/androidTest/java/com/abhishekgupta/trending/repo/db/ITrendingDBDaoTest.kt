@@ -6,6 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.abhishekgupta.trending.model.ContributorDto
 import com.abhishekgupta.trending.model.RepositoryData
 import com.abhishekgupta.trending.model.RepositoryDto
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -54,13 +55,13 @@ class ITrendingDBDaoTest {
 
     @After
     @Throws(Exception::class)
-    fun tearDown() {
+    fun tearDown() = runBlocking {
         db.trendingDao().deleteAll()
         db.close()
     }
 
     @Test
-    fun insert() {
+    fun insert() = runBlocking {
         db.trendingDao().insert(data)
 
         val repos = db.trendingDao().getAllTrendingRepos()
@@ -69,7 +70,7 @@ class ITrendingDBDaoTest {
     }
 
     @Test
-    fun deleteAll() {
+    fun deleteAll() = runBlocking {
         repositoryList.add(repositoryDto.copy(author = "author1"))
         db.trendingDao().insert(
             RepositoryData(
@@ -90,7 +91,7 @@ class ITrendingDBDaoTest {
     }
 
     @Test
-    fun getAllTrendingRepos() {
+    fun getAllTrendingRepos() = runBlocking {
         repositoryList.add(repositoryDto.copy(author = "author1"))
         repositoryList.add(repositoryDto.copy(author = "author2"))
         db.trendingDao().insert(

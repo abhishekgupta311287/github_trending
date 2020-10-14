@@ -70,8 +70,8 @@ dependencies {
     implementation "androidx.multidex:multidex:$versions.multidex"
 
     implementation "androidx.room:room-runtime:$versions.room"
-    implementation 'androidx.room:room-ktx:2.3.0-alpha02'
-    kapt "androidx.room:room-compiler:$versions.room_compiler"
+    implementation "androidx.room:room-ktx:$versions.room_ktx"
+    kapt "androidx.room:room-compiler:$versions.room"
 
     testImplementation "junit:junit:$versions.junit"
     testImplementation "io.mockk:mockk:$versions.mockk"

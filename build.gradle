@@ -28,7 +28,7 @@ buildscript {
         versions.multidex = '2.0.1'
 
         versions.room = '2.2.5'
-        versions.room_compiler = '2.0.0'
+        versions.room_ktx = '2.3.0-alpha02'
 
         versions.junit = '4.13'
         versions.junit_ext = '1.1.2'

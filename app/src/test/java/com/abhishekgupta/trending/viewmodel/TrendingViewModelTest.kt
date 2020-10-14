@@ -9,8 +9,6 @@ import com.abhishekgupta.trending.model.Resource
 import com.abhishekgupta.trending.repo.network.ITrendingRepository
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import org.junit.*
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -52,7 +50,7 @@ class TrendingViewModelTest {
     }
 
     @Test
-    fun `test success with valid response and force refresh false`() = runBlocking {
+    fun `test success with valid response and force refresh false`() {
 
         val viewModel = TrendingViewModel(repositoryImpl)
 
@@ -64,8 +62,6 @@ class TrendingViewModelTest {
 
         viewModel.requestTrendingRepositories(false)
 
-        delay(500)
-
         assert(viewModel.trendingLiveData.value is Resource.Success)
 
         assert(viewModel.trendingLiveData.value?.data!!.isNotEmpty())
@@ -73,7 +69,7 @@ class TrendingViewModelTest {
     }
 
     @Test
-    fun `test success with valid response and force refresh true`() = runBlocking {
+    fun `test success with valid response and force refresh true`() {
 
         val viewModel = TrendingViewModel(repositoryImpl)
 
@@ -85,8 +81,6 @@ class TrendingViewModelTest {
 
         viewModel.requestTrendingRepositories(true)
 
-        delay(500)
-
         assert(viewModel.trendingLiveData.value is Resource.Success)
 
         assert(viewModel.trendingLiveData.value?.data!!.isNotEmpty())
@@ -94,20 +88,19 @@ class TrendingViewModelTest {
     }
 
     @Test
-    fun `test invalid response`() = runBlocking {
+    fun `test invalid response`() {
 
         val viewModel = TrendingViewModel(repositoryImpl)
 
         coEvery { repositoryImpl.getTrendingRepositories() }.returns(emptyList())
         viewModel.requestTrendingRepositories()
-        delay(500)
 
         assert(viewModel.trendingLiveData.value is Resource.Error)
 
     }
 
     @Test
-    fun `test sort by name`() = runBlocking {
+    fun `test sort by name`() {
         val viewModel = TrendingViewModel(repositoryImpl)
         val list = arrayListOf(repositoryDto)
 
@@ -116,7 +109,6 @@ class TrendingViewModelTest {
         coEvery { repositoryImpl.getTrendingRepositories() }.returns(list)
 
         viewModel.requestTrendingRepositories()
-        delay(500)
 
         Assert.assertEquals("Ricky", list[0].name)
 
@@ -126,7 +118,7 @@ class TrendingViewModelTest {
     }
 
     @Test
-    fun `test sort by stars`() = runBlocking {
+    fun `test sort by stars`() {
         val viewModel = TrendingViewModel(repositoryImpl)
         val list = arrayListOf(repositoryDto)
 
@@ -135,7 +127,6 @@ class TrendingViewModelTest {
         coEvery { repositoryImpl.getTrendingRepositories() }.returns(list)
 
         viewModel.requestTrendingRepositories()
-        delay(500)
 
         Assert.assertEquals(10, list[0].stars)
 

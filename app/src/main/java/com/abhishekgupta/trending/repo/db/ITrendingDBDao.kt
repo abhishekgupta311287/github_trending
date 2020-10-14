@@ -10,12 +10,12 @@ import com.abhishekgupta.trending.model.RepositoryData
 interface ITrendingDBDao {
 
     @Query("SELECT * FROM trending_repos_")
-    fun getAllTrendingRepos(): RepositoryData
+    suspend fun getAllTrendingRepos(): RepositoryData
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(repos: RepositoryData)
+    suspend fun insert(repos: RepositoryData)
 
     @Query("DELETE FROM trending_repos_")
-    fun deleteAll()
+    suspend fun deleteAll()
 
 }
