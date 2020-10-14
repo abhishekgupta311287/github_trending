@@ -1,7 +1,9 @@
 # Github Trending Repositories
-=============================
+================================================
 
 This app the displays trending repositories from Github.
+
+It has two branches one showing usage of RxJava and other Kotlin coroutines
 
 Introduction
 --------------------
