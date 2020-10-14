@@ -17,12 +17,12 @@ class TrendingViewModel(
 
     fun requestTrendingRepositories(forceRefresh: Boolean = false) {
         viewModelScope.launch {
-            trendingLiveData.postValue(Resource.Loading())
+            trendingLiveData.value = Resource.Loading()
             val trendingRepositories = repository.getTrendingRepositories(forceRefresh)
             if (trendingRepositories.isNullOrEmpty()) {
-                trendingLiveData.postValue(Resource.Error("List is null or empty"))
+                trendingLiveData.value = Resource.Error("List is null or empty")
             } else {
-                trendingLiveData.postValue(Resource.Success(trendingRepositories))
+                trendingLiveData.value = Resource.Success(trendingRepositories)
             }
 
         }
@@ -30,18 +30,16 @@ class TrendingViewModel(
 
     fun sortByStars() {
         trendingLiveData.value?.data?.let { repos ->
-            trendingLiveData.postValue(
+            trendingLiveData.value =
                 Resource.Success(repos.sortedByDescending { it.stars }.toList())
-            )
         }
     }
 
     fun sortByName() {
         trendingLiveData.value?.data?.let { repos ->
-            trendingLiveData.postValue(
+            trendingLiveData.value =
                 Resource.Success(repos.sortedBy { it.name.toLowerCase(Locale.getDefault()) }
                     .toList())
-            )
         }
     }
 
